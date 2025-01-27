@@ -45,6 +45,7 @@ class DAQ_0DViewer_LockInSR830(DAQ_Viewer_base):
              'value': dict(all_items=channels, selected=['CH1', 'CH2'])},
             {'title': 'Sampling (Hz):', 'name': 'sampling_rate', 'type': 'list', 'limits': SR830.SAMPLE_FREQUENCIES},
             ]},
+        {'title': 'Controller:', 'name': 'harmonic', 'type': 'int', 'value': 1, 'min': 1, 'max': 19999},
         {'title': 'Configuration:', 'name': 'config', 'type': 'group', 'children': [
             {'title': 'Reset:', 'name': 'reset', 'type': 'bool_push', 'value': False},
             {'title': 'Setup number:', 'name': 'setup_number', 'type': 'int', 'value': 1, 'min': 1, 'max': 9},
@@ -90,6 +91,9 @@ class DAQ_0DViewer_LockInSR830(DAQ_Viewer_base):
         elif param.name() == 'sampling_rate':
             self.controller.sample_frequency = param.value()
             param.setValue(self.controller.sample_frequency)  # check it
+
+        elif param.name() == 'harmonic':
+            self.controller.harmonic = param.value()
 
     def ini_detector(self, controller=None):
         """Detector communication initialization
